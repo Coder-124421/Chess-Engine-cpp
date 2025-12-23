@@ -84,3 +84,4 @@
 //             cout << "Invalid Move\n";
 //     }
 // }
+// this file is for running the chess engine on terminal instead of raylib
