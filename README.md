@@ -1,5 +1,2 @@
 # Chess-Engine-cpp
-Chess engine core in C++ using object-oriented design, modeling board state, pieces, moves, and game flow.
-<br>
-A modular, rule-complete chess engine implemented in C++, focusing on correct move validation, check detection, and game logic.
-The project is currently terminal-based and designed with extensibility in mind for future GUI integration.
+Designed and implemented a rule-complete chess engine in C++ using object-oriented principles, modeling board state, pieces, moves, and game flow. The engine supports legal move generation, check/checkmate detection, and game termination logic. A graphical interface built with raylib renders the chessboard and pieces, enabling interactive play through mouse input and dynamic visual updates.
