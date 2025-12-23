@@ -109,6 +109,5 @@ Designed and implemented a rule-complete chess engine in C++ using object-orient
   <li><strong>Raylib:</strong> Installed and properly configured (<a href="https://www.raylib.com/" target="_blank">raylib</a> graphics library)</li>
   <li><strong>Build Tools:</strong> Make / CMake (or equivalent build system)</li>
   <li><strong>Operating System:</strong> Windows, Linux, or macOS</li>
-  <li><strong>Assets:</strong> Chess piece textures located in the <code>assets/</code> directory</li>
 </ul>
 
