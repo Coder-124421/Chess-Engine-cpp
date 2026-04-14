@@ -4,5 +4,5 @@ enum class COLOR;
 class MoveDetector
 {
 public:
-    static bool Moveexist(Board &, COLOR);
+    static bool Moveexist(Board &, COLOR, bool make = false);
 };

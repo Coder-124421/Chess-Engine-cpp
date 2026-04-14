@@ -50,7 +50,7 @@ void DrawPieces(Board &board, int TILE)
 }
 int main()
 {
-    vector<bool>right(9,false);
+    vector<bool> right(9, false);
     bool gameOver = false;
     COLOR winner = COLOR::None;
     InitWindow(600, 650, "Chess GUI");
@@ -73,6 +73,7 @@ int main()
 
         if (gameOver && !delay)
         {
+            // delay = true;
             if (GetTime() - got >= 2.0)
             {
                 delay = true;
@@ -96,7 +97,8 @@ int main()
         }
         else
         {
-          if(!gameOver)  DrawText(side == COLOR::White ? "White to move" : "Black to move", 200, 610, 30, BLACK);
+            if (!gameOver)
+                DrawText(side == COLOR::White ? "White to move" : "Black to move", 200, 610, 30, BLACK);
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
                 Vector2 mouse = GetMousePosition();
@@ -118,17 +120,20 @@ int main()
                     else
                     {
                         Move move{sr, sc, r, c};
-                        if(board.grid[sr][sc].type==Piecetype::King && board.grid[sr][sc].color==side && (sr == r && abs(sc-c)==2)){
-                            bool kingside = true;
-                            if(c<sc) kingside = false;
-                           Validator::castle(board,side,kingside,right);
-                        }
-                       else if (Validator::isLegalMove(board, move, side))
+                        if (board.grid[sr][sc].type == Piecetype::King && board.grid[sr][sc].color == side && (sr == r && abs(sc - c) == 2))
                         {
-                            int y = 0;
-                            if(side==COLOR::Black) y+=4;
-                           
+                            bool kingside = true;
+                            if (c < sc)
+                                kingside = false;
+                            Validator::castle(board, side, kingside, right);
+                        }
+                        else if (Validator::isLegalMove(board, move, side))
+                        {
+                            piece movingPiece = board.grid[sr][sc];
+ 
+                            int y = (side == COLOR::Black) ? 4 : 0;
                             piece toundo = MoveManager::MakeMove(board, move);
+                            
                             isCheck = (CheckDetector::check(board, side));
                             if (isCheck)
                             {
@@ -136,35 +141,52 @@ int main()
                             }
                             else
                             {
-                                if(board.grid[move.fr][move.fc].type==Piecetype::King){
-                              right[y]= true;
-                              right[y<<1] = true;
-                           }
-                           else if(board.grid[move.fr][move.fc].type==Piecetype::Rook){
-                               if(side==COLOR::White){
-                                 if(move.fr==7){
-                                    if(move.fc==0) right[y<<1]=true;
-                                    else if(move.fc==7) right[y]= true;
-                                 }
-                               }
-                               else {
-                                if(move.fr==0){
-                                     if(move.fc==0) right[y<<1]=true;
-                                    else if(move.fc==7)right[y]= true;
+                                if (movingPiece.type == Piecetype::King)
+                                {
+                                    right[y] = true;
+                                    right[y << 1] = true;
                                 }
-                               }
-                           }
+                                else if (board.grid[move.fr][move.fc].type == Piecetype::Rook)
+                                {
+                                    if (side == COLOR::White)
+                                    {
+                                        if (move.fr == 7)
+                                        {
+                                            if (move.fc == 0)
+                                                right[y << 1] = true;
+                                            else if (move.fc == 7)
+                                                right[y] = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (move.fr == 0)
+                                        {
+                                            if (move.fc == 0)
+                                                right[y << 1] = true;
+                                            else if (move.fc == 7)
+                                                right[y] = true;
+                                        }
+                                    }
+                                }
                                 side = opp;
                                 isCheck = (CheckDetector::check(board, side));
+                                // if(isCheck) {
+                                //     bool move1 = MoveDetector::Moveexist(board,side,true);
+                                //     LoadPieceTextures();
+                                //     WaitTime(2);
+                                // }
                                 if (!MoveDetector::Moveexist(board, side))
                                 {
                                     gameOver = true;
                                     got = GetTime();
-                                    if(isCheck) {
-                                    if (side == COLOR::White)
-                                        winner = COLOR::Black;
-                                    else 
-                                        winner = COLOR::White;}
+                                    if (isCheck)
+                                    {
+                                        if (side == COLOR::White)
+                                            winner = COLOR::Black;
+                                        else
+                                            winner = COLOR::White;
+                                    }
                                 }
                             }
                         }
@@ -184,7 +206,7 @@ int main()
             DrawPieces(board, tile);
             if (selected)
                 DrawRectangleLines(sc * tile, sr * tile, tile, tile, BLUE);
-                isCheck = CheckDetector::check(board, side);
+            isCheck = CheckDetector::check(board, side);
             if (isCheck)
             {
                 float pulse = (std::sin(GetTime() * 5) + 1) * (0.5f);

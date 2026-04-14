@@ -205,11 +205,8 @@ bool Validator::isLegalMove(Board &chess, Move move, COLOR side)
 
     case Piecetype::King:
     {
-        if (abs(move.fr - move.tr) > 1 || abs(move.fc - move.tc) > 2)
+        if (abs(move.fr - move.tr) > 1 || abs(move.fc - move.tc) > 1)
             return false;
-            if(move.fr==move.tr && abs(move.fc - move.tc)==2){
-                
-            }
     }
     break;
     }

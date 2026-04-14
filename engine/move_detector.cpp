@@ -4,7 +4,7 @@
 #include "check_detector.h"
 #include "move.h"
 #include <iostream>
-bool MoveDetector::Moveexist(Board &board, COLOR side)
+bool MoveDetector::Moveexist(Board &board, COLOR side, bool make)
 {
     for (int i = 0; i < 8; i++)
     {
@@ -26,10 +26,10 @@ bool MoveDetector::Moveexist(Board &board, COLOR side)
                             piece toundo = MoveManager::MakeMove(board, move);
                             if (!(CheckDetector::check(board, side)))
                             {
-                                MoveManager::Undo(board, move, toundo);
+                                if(!make) MoveManager::Undo(board, move, toundo);
                                 return true;
                             }
-                            MoveManager::Undo(board, move, toundo);
+                             MoveManager::Undo(board, move, toundo);
                         }
                     }
                 }
