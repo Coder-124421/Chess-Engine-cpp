@@ -13,3 +13,5 @@ Designed and implemented a rule-complete chess engine in C++ using object-orient
 <li>Finally run the command ./game.exe </li>
 <li>This will open a raylib window (The board with pieces to play) </li>
 <li> Play and enjoy the game </li>
+<br>
+* Don't forget to open the workspace.
